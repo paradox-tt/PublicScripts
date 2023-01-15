@@ -12,7 +12,7 @@ prometheus_port=$1;
 service=$2;
 override_download=$3;
 
-echo "Overridden file: $override_download";
+echo "Overridden file: '$override_download'";
 
 if [ override_download != "" ]
 then
