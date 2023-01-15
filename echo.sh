@@ -6,7 +6,9 @@ latest_filesha=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot.s
 
 prometheus_port=9700;
 
-instance_version=$(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F \" '{print $1}');
+instance_version=$(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F "-" '{print v$1}');
+is_parachain_validator=$(curl -s http://localhost:$prometheus_port/metrics | grep polkadot_node_is_parachain_validator | awk -F " " '{print $2}');
 
 echo "Current binary version : $latest_version";
 echo "Current instance version : $instance_version";
+echo "Is Paravalidating: $is_parachain_validator";
