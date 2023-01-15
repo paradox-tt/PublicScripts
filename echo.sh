@@ -16,7 +16,7 @@ echo "Overridden file: '$override_download'";
 
 if [ "$override_download" != "" ]
 then
-    $latest_file="$override_download";
+    latest_file="$override_download";
 fi
 
 instance_version=$(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F "-" '{print $1}');
@@ -44,7 +44,7 @@ then
     $(sudo mv $download_path"/polkadot" /usr/local/bin/polkadot);
 fi
 
-if [ "$is_parachain_validator" != "1" ] && [ "$instance_version" != "$current_release" ]
+if [ "$is_parachain_validator" != "1" ] 
 then
     echo "Daemon reloading and restarting service";
     $(sudo systemctl daemon-reload);
