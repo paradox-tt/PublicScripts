@@ -4,15 +4,20 @@ latest_version=$(echo $releases | jq -r '.tag_name');
 latest_file=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot") | .browser_download_url');
 latest_filesha=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot.sha256") | .browser_download_url');
 
-prometheus_port=$1;
+current_release=$(polkadot --version | awk '{print $2}' | awk -F "-" '{print $1}');
 
-instance_version=$(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F "-" '{print $1}');
-is_parachain_validator=$(curl -s http://localhost:$prometheus_port/metrics | grep polkadot_node_is_parachain_validator | awk -F " " '{print $2}');
+prometheus_port=$1;
+service_file=$2;
+
+instance_version=$(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F "-" '{print "v"$1}');
+is_parachain_validator=$(curl -s http://localhost:$prometheus_port/metrics | grep polkadot_node_is_parachain_validator{ | awk '{print $2}');
 
 #Show variables attained
 echo "Prometheus port : $prometheus_port";
+echo "Service filename : $service_file";
 
-echo "Current binary version : $latest_version";
+echo "Latest binary version : $latest_version";
+echo "Current binary version : $current_release";
 echo "Current instance version : $instance_version";
 
 echo "Is Paravalidating: $is_parachain_validator";
