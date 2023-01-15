@@ -52,7 +52,7 @@ then
         $(sudo systemctl daemon-reload);
         $(sudo systemctl restart $service);
     else
-        echo "Version is the latest, no need to restart the service.;    
+        echo "Version is the latest, no need to restart the service";    
     fi
 else
     echo "Currently para validating, restart not possible";    
