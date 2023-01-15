@@ -12,7 +12,7 @@ prometheus_port=$1;
 service=$2;
 override_download=$3;
 
-if [ override_download!="" ]
+if [ override_download != "" ]
 then
     latest_file=override_download;
 fi
