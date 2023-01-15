@@ -14,7 +14,7 @@ override_download=$3;
 
 echo "Overridden file: '$override_download'";
 
-if [ $override_download != "" ]
+if [ "$override_download" != "" ]
 then
     $latest_file=$override_download;
 fi
@@ -36,14 +36,14 @@ echo "Is Paravalidating: $is_parachain_validator";
 if [ "$latest_version" == "$current_release" ]
 then
     echo "Updating binary";
-    echo "Downloading $latest_file";
+    echo "Downloading $latest_file and making it executable";
 
     $(curl -sL $latest_file -o $download_path"/polkadot");
-    
+    $(chmod +x $download_path"/polkadot");
     echo "Moving file to /usr/local/bin";
 fi
 
-if [ $is_parachain_validator != 1 ] && [ $instance_version != $current_release ]
+if [ "$is_parachain_validator" != "1" ] && [ "$instance_version" != "$current_release" ]
 then
     echo "Daemon reloading and restarting service";
     $(sudo systemctl daemon-reload);
