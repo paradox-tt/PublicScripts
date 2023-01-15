@@ -33,7 +33,7 @@ echo "Current instance version : $instance_version";
 
 echo "Is Paravalidating: $is_parachain_validator";
 
-if [ "$latest_version" == "$current_release" ]
+if [ "$latest_version" != "$current_release" ] || [ "$override_download" != "" ]
 then
     echo "Updating binary";
     echo "Downloading $latest_file and making it executable";
