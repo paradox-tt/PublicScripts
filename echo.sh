@@ -29,6 +29,6 @@ if [ "$latest_version" == "$current_release" ]
 then
     echo "Updating binary";
     echo "Downloading $latest_file";
-    
-    $(curl -sL $latest_file -o "$download_path\polkadot");
+
+    $(curl -sL $latest_file -o $download_path"\polkadot");
 fi
