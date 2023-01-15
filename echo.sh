@@ -46,7 +46,14 @@ fi
 
 if [ "$is_parachain_validator" != "1" ] 
 then
-    echo "Daemon reloading and restarting service";
-    $(sudo systemctl daemon-reload);
-    $(sudo systemctl restart $service);
+    if [ "$current_release" != "$instance_version" ] || [ "$override_download" != "" ]
+    then
+        echo "Daemon reloading and restarting service";
+        $(sudo systemctl daemon-reload);
+        $(sudo systemctl restart $service);
+    else
+        echo "Version is the latest, no need to restart the service.;    
+    fi
+else
+    echo "Currently para validating, restart not possible";    
 fi
