@@ -1,4 +1,6 @@
 # pull latest git repo from api and parse variables we need
+download_path = "\home\ansible_user";
+
 releases=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest);
 latest_version=$(echo $releases | jq -r '.tag_name');
 latest_file=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot") | .browser_download_url');
@@ -21,3 +23,8 @@ echo "Current binary version : $current_release";
 echo "Current instance version : $instance_version";
 
 echo "Is Paravalidating: $is_parachain_validator";
+
+if("$latest_version"=="$current_release"){
+    echo "Updating binary";
+    $(wget latest_file -o "$download_path\polkadot");
+}
