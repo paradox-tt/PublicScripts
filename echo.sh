@@ -17,6 +17,7 @@ is_parachain_validator=$(curl -s http://localhost:$prometheus_port/metrics | gre
 #Show variables attained
 echo "Prometheus port : $prometheus_port";
 echo "Service filename : $service_file";
+echo "Download path: $download_path";
 
 echo "Latest binary version : $latest_version";
 echo "Current binary version : $current_release";
@@ -27,5 +28,7 @@ echo "Is Paravalidating: $is_parachain_validator";
 if [ "$latest_version" == "$current_release" ]
 then
     echo "Updating binary";
-    $(curl -sL latest_file -o "$download_path\polkadot");
+    echo "Downloading $latest_file";
+    
+    $(curl -sL $latest_file -o "$download_path\polkadot");
 fi
