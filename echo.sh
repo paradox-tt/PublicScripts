@@ -1,5 +1,5 @@
 # pull latest git repo from api and parse variables we need
-download_path = "\home\ansible_user";
+download_path="\home\ansible_user";
 
 releases=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest);
 latest_version=$(echo $releases | jq -r '.tag_name');
