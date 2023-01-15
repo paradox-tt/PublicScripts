@@ -41,7 +41,7 @@ then
     echo "Moving file to /usr/local/bin";
 fi
 
-if [ $is_parachain_validator != 1 && $instance_version != $current_release]
+if [ $is_parachain_validator != 1 ] && [ $instance_version != $current_release ]
 then
     echo "Daemon reloading and restarting service";
     $(sudo systemctl daemon-reload);
