@@ -14,9 +14,9 @@ override_download=$3;
 
 echo "Overridden file: '$override_download'";
 
-if [ override_download != "" ]
+if [ $override_download != "" ]
 then
-    latest_file=override_download;
+    $latest_file=$override_download;
 fi
 
 instance_version=$(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F "-" '{print $1}');
