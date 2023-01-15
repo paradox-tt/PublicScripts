@@ -1,7 +1,7 @@
-#TESTING FILE
-# pull latest git repo from api and parse variables we need
+
 download_path="/home/ansible_user";
 
+#Attain release info from github
 releases=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest);
 latest_version=$(echo $releases | jq -r '.tag_name' | awk -F "v" '{print $2}');
 latest_file=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot") | .browser_download_url');
@@ -9,6 +9,7 @@ latest_filesha=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot.s
 
 current_release=$(polkadot --version | awk '{print $2}' | awk -F "-" '{print $1}');
 
+#Examine input parameters
 prometheus_port=$1;
 service=$2;
 override_download=$3;
@@ -34,6 +35,8 @@ echo "Current instance version : $instance_version";
 
 echo "Is Paravalidating: $is_parachain_validator";
 
+
+#If there is a newer version of the binary or if there's an override utilize the respective binary
 if [ "$latest_version" != "$current_release" ] || [ "$override_download" != "" ]
 then
     echo "Updating binary";
@@ -45,9 +48,13 @@ then
     $(sudo mv $download_path"/polkadot" /usr/local/bin/polkadot);
 fi
 
+current_release=$(polkadot --version | awk '{print $2}' | awk -F "-" '{print $1}');
+
+#If the instance is a para validator don't do anything
+#Otherwise upgrade if there's a difference between the instance version and the downloaded version
 if [ "$is_parachain_validator" != "1" ] 
 then
-    if [ "$current_release" != "$instance_version" ] || [ "$override_download" != "" ]
+    if [ "$current_release" != "$instance_version" ]
     then
         echo "Daemon reloading and restarting service";
         $(sudo systemctl daemon-reload);
