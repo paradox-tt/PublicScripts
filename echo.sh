@@ -8,4 +8,5 @@ prometheus_port = 9700;
 
 instance_version = $(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F \" '{print $1}');
 
-echo "Current release version : $latest_version $latest_filesha $instance_version";
+echo "Current binary version : $latest_version";
+echo "Current instance version : $instance_version";
