@@ -1,5 +1,5 @@
 # pull latest git repo from api and parse variables we need
-download_path="\home\ansible_user";
+download_path="/home/ansible_user";
 
 releases=$(curl -s https://api.github.com/repos/paritytech/polkadot/releases/latest);
 latest_version=$(echo $releases | jq -r '.tag_name' | awk -F "v" '{print $2}');
@@ -30,5 +30,5 @@ then
     echo "Updating binary";
     echo "Downloading $latest_file";
 
-    $(curl -sL $latest_file -o $download_path"\polkadot");
+    $(curl -sL $latest_file -o $download_path"/polkadot");
 fi
