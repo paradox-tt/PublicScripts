@@ -41,6 +41,7 @@ then
     $(curl -sL $latest_file -o $download_path"/polkadot");
     $(chmod +x $download_path"/polkadot");
     echo "Moving file to /usr/local/bin";
+    $(sudo mv $download_path"/polkadot" /usr/local/bin/polkadot);
 fi
 
 if [ "$is_parachain_validator" != "1" ] && [ "$instance_version" != "$current_release" ]
