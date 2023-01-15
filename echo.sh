@@ -6,4 +6,6 @@ latest_filesha=$(echo $releases | jq -r '.assets[] | select(.name == "polkadot.s
 
 prometheus_port = 9700;
 
-echo "Current release version : $latest_version $latest_filesha";
+instance_version = $(curl -s http://localhost:$prometheus_port/metrics | grep substrate_build_info{ | awk -F ' ' '{ print $1 }' | awk -F { '{ print "{"$2}' | awk -F version=\" '{print $2}' | awk -F \" '{print $1}');
+
+echo "Current release version : $latest_version $latest_filesha $instance_version";
