@@ -27,5 +27,5 @@ echo "Is Paravalidating: $is_parachain_validator";
 if [ "$latest_version" == "$current_release" ]
 then
     echo "Updating binary";
-    $(wget latest_file -o "$download_path\polkadot");
+    $(curl -sL latest_file -o "$download_path\polkadot");
 fi
