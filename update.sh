@@ -54,7 +54,7 @@ current_release=$(polkadot --version | awk '{print $2}' | awk -F "-" '{print $1}
 #Otherwise upgrade if there's a difference between the instance version and the downloaded version
 if [ "$is_parachain_validator" != "1" ] 
 then
-    if [ "$current_release" != "$instance_version" ]
+    if [ "$current_release" != "$instance_version" ] || [ "$override_download" != "" ]
     then
         echo "Daemon reloading and restarting service";
         $(sudo systemctl daemon-reload);
