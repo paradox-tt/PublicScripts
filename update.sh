@@ -1,4 +1,6 @@
 
+TZ='America/Port_of_Spain' date
+
 download_path="/home/ansible_user";
 
 #Attain release info from github
